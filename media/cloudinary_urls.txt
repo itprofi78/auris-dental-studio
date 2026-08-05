@@ -1,0 +1,10 @@
+hero.mp4	https://res.cloudinary.com/dkyfkstgq/video/upload/v1785930245/3d-saity/auris/hero.mp4
+hero_poster.webp	https://res.cloudinary.com/dkyfkstgq/image/upload/v1785930247/3d-saity/auris/hero_poster.webp
+case1_before.webp	https://res.cloudinary.com/dkyfkstgq/image/upload/v1785930249/3d-saity/auris/case1_before.webp
+case1_after.webp	https://res.cloudinary.com/dkyfkstgq/image/upload/v1785930250/3d-saity/auris/case1_after.webp
+case2_before.webp	https://res.cloudinary.com/dkyfkstgq/image/upload/v1785930252/3d-saity/auris/case2_before.webp
+case2_after.webp	https://res.cloudinary.com/dkyfkstgq/image/upload/v1785930253/3d-saity/auris/case2_after.webp
+case3_before.webp	https://res.cloudinary.com/dkyfkstgq/image/upload/v1785930255/3d-saity/auris/case3_before.webp
+case3_after.webp	https://res.cloudinary.com/dkyfkstgq/image/upload/v1785930256/3d-saity/auris/case3_after.webp
+case4_before.webp	https://res.cloudinary.com/dkyfkstgq/image/upload/v1785930257/3d-saity/auris/case4_before.webp
+case4_after.webp	https://res.cloudinary.com/dkyfkstgq/image/upload/v1785930258/3d-saity/auris/case4_after.webp
