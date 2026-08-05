@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURIS Dental Studio — Цифрова естетична стоматологія</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #16161D;
+  --bg-card: #1E1E28;
+  --gold: #C8A96E;
+  --gold-light: #D4B87A;
+  --white: #FFFFFF;
+  --text: #C8C8D0;
+  --text-dim: #85859A;
+  --glass: rgba(255,255,255,0.07);
+  --glass-border: rgba(255,255,255,0.12);
+  --radius: 16px;
+  --vh: 1vh;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4, h5 { font-family: 'Manrope', sans-serif; color: var(--white); line-height: 1.15; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ─── NAV ─── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 0;
+  background: rgba(19,19,24,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: padding 0.3s;
+}
+.nav.scrolled { padding: 12px 0; }
+.nav .container { display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 22px; color: var(--white); text-decoration: none; letter-spacing: 3px; }
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.3s; letter-spacing: 0.5px; }
+.nav-links a:hover { color: var(--white); }
+.nav-cta { background: var(--gold); color: var(--bg); padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none; transition: all 0.3s; font-family: 'Inter', sans-serif; }
+.nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+.burger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+.burger span { display: block; width: 24px; height: 2px; background: var(--white); margin: 5px 0; transition: 0.3s; }
+
+/* 🔒 ─── SCROLL CONTAINER ─── */
+#scroll-container {
+  position: relative;
+  height: calc(250 * var(--vh));
+}
+#hero {
+  position: sticky;
+  top: 0;
+  height: calc(100 * var(--vh));
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  will-change: transform;
+}
+#bg-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0.85; filter: brightness(0.95);
+  will-change: transform;
+}
+.hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(19,19,24,0.7) 0%, rgba(19,19,24,0.15) 55%, rgba(19,19,24,0.4) 100%);
+  z-index: 1;
+}
+#hero-content {
+  position: relative; z-index: 2;
+  width: 100%; padding: 120px 0 60px;
+  will-change: transform, opacity;
+}
+.hero-eyebrow { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; font-weight: 600; }
+#hero h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 800; margin-bottom: 24px; max-width: 700px; }
+#hero h1 .accent { color: var(--gold); }
+.hero-sub { font-size: 18px; max-width: 520px; margin-bottom: 40px; color: var(--text); line-height: 1.7; }
+.hero-cta { display: inline-flex; align-items: center; gap: 12px; background: var(--gold); color: var(--bg); padding: 16px 36px; border: none; border-radius: 12px; font-weight: 700; font-size: 16px; text-decoration: none; transition: all 0.3s; font-family: 'Manrope', sans-serif; }
+.hero-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
+.hero-cta svg { width: 20px; height: 20px; }
+.hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 64px; padding-top: 40px; border-top: 1px solid var(--glass-border); max-width: 700px; }
+.hero-stat-num { font-family: 'Manrope', sans-serif; font-size: 32px; font-weight: 800; color: var(--white); display: block; }
+.hero-stat-label { font-size: 13px; color: var(--text-dim); }
+
+/* 🔒 ─── HERO OVERLAY ─── */
+#hero-overlay {
+  position: absolute; inset: 0; z-index: 3;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 24px;
+  opacity: 0;
+  will-change: opacity;
+  pointer-events: none;
+}
+.hero-overlay-label { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; font-weight: 600; }
+.hero-overlay-title { font-family: 'Manrope', sans-serif; font-size: clamp(32px, 5vw, 56px); font-weight: 800; color: var(--white); max-width: 700px; line-height: 1.15; }
+
+/* 🔒 ─── SECTION 2 ─── */
+#section-2 {
+  position: relative;
+  z-index: 4;
+  background: rgba(22, 22, 29, 0.15);
+  will-change: transform;
+}
+#section-2 .section-eyebrow,
+#section-2 .section-title,
+#section-2 .section-desc {
+  background: rgba(22, 22, 29, 0.85);
+  display: inline;
+  padding: 4px 12px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  border-radius: 4px;
+}
+/* ─── SECTIONS ─── */
+section { padding: 100px 0; }
+.section-eyebrow {
+  font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px; font-weight: 600;
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 44px); font-weight: 700;
+  margin-bottom: 20px;
+}
+.section-desc {
+  font-size: 16px; color: var(--text); max-width: 560px; margin-bottom: 48px;
+}
+
+/* ─── SERVICES ─── */
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.service-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  transition: all 0.4s;
+  backdrop-filter: blur(12px);
+  position: relative; overflow: hidden;
+}
+.service-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0; transition: opacity 0.4s;
+}
+.service-card:hover { border-color: rgba(200,169,110,0.2); transform: translateY(-4px); }
+.service-card:hover::before { opacity: 1; }
+.service-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(200,169,110,0.1); display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px; font-size: 22px;
+}
+.service-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+.service-card p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin-bottom: 16px; }
+.service-price {
+  font-family: 'Manrope', sans-serif; font-weight: 700;
+  color: var(--gold); font-size: 16px;
+}
+.service-price span { font-size: 12px; font-weight: 400; color: var(--text-dim); }
+
+/* ─── BEFORE/AFTER ─── */
+.cases-section { background: var(--bg-card); }
+.cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.case-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: var(--radius); overflow: hidden; transition: transform 0.3s;
+}
+.case-card:hover { transform: translateY(-4px); }
+.case-images {
+  position: relative; height: 240px; overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.case-img-wrap {
+  position: relative; overflow: hidden;
+}
+.case-img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.case-img-wrap.before { background: #1a1520; }
+.case-img-wrap.after { background: #151a1a; }
+.case-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; padding: 16px;
+}
+.case-placeholder svg { width: 36px; height: 36px; opacity: 0.5; }
+.case-placeholder span {
+  font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+  font-weight: 600; font-family: 'Manrope', sans-serif;
+}
+.case-img-wrap.before .case-placeholder span { color: var(--text-dim); }
+.case-img-wrap.after .case-placeholder span { color: var(--gold); }
+.case-img-wrap.before .case-placeholder svg { color: var(--text-dim); }
+.case-img-wrap.after .case-placeholder svg { color: var(--gold); }
+.case-divider {
+  position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 3px; background: var(--gold); transform: translateX(-50%);
+  z-index: 2;
+}
+.case-label {
+  position: absolute; z-index: 3;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  padding: 5px 14px; border-radius: 4px;
+  font-family: 'Manrope', sans-serif;
+  top: 12px;
+}
+.case-label-before {
+  left: 12px;
+  color: var(--white); background: rgba(0,0,0,0.7);
+}
+.case-label-after {
+  right: 12px;
+  color: var(--bg); background: var(--gold);
+}
+.case-info { padding: 24px; }
+.case-tag {
+  display: inline-block; padding: 4px 12px; border-radius: 6px;
+  background: rgba(200,169,110,0.12); color: var(--gold);
+  font-size: 12px; font-weight: 600; letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.case-info h3 { font-size: 17px; margin-bottom: 8px; }
+.case-info p { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+.case-meta {
+  display: flex; gap: 20px; margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid var(--glass-border);
+}
+.case-meta span { font-size: 12px; color: var(--text-dim); }
+.case-meta strong { color: var(--white); font-weight: 600; }
+
+/* ─── ABOUT ─── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.about-image {
+  border-radius: var(--radius); overflow: hidden; height: 480px;
+  position: relative;
+}
+.about-image img { width: 100%; height: 100%; object-fit: cover; }
+.about-image::after {
+  content: ''; position: absolute; inset: 0;
+  border: 1px solid var(--glass-border); border-radius: var(--radius);
+}
+.about-text p { margin-bottom: 20px; font-size: 16px; line-height: 1.8; }
+.about-numbers {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+  margin-top: 32px;
+}
+.about-num-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 12px; padding: 20px; backdrop-filter: blur(12px);
+}
+.about-num-card .num {
+  font-family: 'Manrope', sans-serif; font-size: 28px; font-weight: 800;
+  color: var(--gold);
+}
+.about-num-card .label { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+
+/* ─── TEAM ─── */
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.team-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: all 0.4s; backdrop-filter: blur(12px);
+}
+.team-card:hover { border-color: rgba(200,169,110,0.2); transform: translateY(-4px); }
+.team-photo {
+  height: 260px; overflow: hidden; position: relative;
+}
+.team-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%); transition: filter 0.4s; }
+.team-card:hover .team-photo img { filter: grayscale(0%); }
+.team-info { padding: 20px; }
+.team-info h3 { font-size: 16px; margin-bottom: 4px; }
+.team-role { font-size: 13px; color: var(--gold); margin-bottom: 12px; }
+.team-stats { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+/* ─── TECH ─── */
+.tech-section { background: var(--bg-card); }
+.tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.tech-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: var(--radius); padding: 36px 28px;
+  backdrop-filter: blur(12px); transition: all 0.4s;
+}
+.tech-card:hover { border-color: rgba(200,169,110,0.2); }
+.tech-img {
+  width: 100%; height: 180px; object-fit: cover;
+  border-radius: 12px; margin-bottom: 24px; opacity: 0.85;
+  transition: opacity 0.4s;
+}
+.tech-card:hover .tech-img { opacity: 1; }
+.tech-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: rgba(200,169,110,0.1); display: flex; align-items: center; justify-content: center;
+  margin-bottom: 24px; font-size: 26px;
+}
+.tech-card h3 { font-size: 20px; margin-bottom: 12px; }
+.tech-card p { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
+
+/* ─── REVIEWS ─── */
+.reviews-header { display: flex; align-items: center; gap: 24px; margin-bottom: 48px; flex-wrap: wrap; }
+.reviews-header .rating {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--glass); border: 1px solid var(--glass-border);
+  padding: 12px 20px; border-radius: 12px;
+}
+.rating-num {
+  font-family: 'Manrope', sans-serif; font-size: 28px; font-weight: 800; color: var(--white);
+}
+.rating-stars { color: var(--gold); font-size: 16px; letter-spacing: 2px; }
+.rating-count { font-size: 13px; color: var(--text-dim); }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.review-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: var(--radius); padding: 28px; backdrop-filter: blur(12px);
+}
+.review-stars { color: var(--gold); font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
+.review-text { font-size: 14px; color: var(--text); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+.review-author { font-size: 14px; font-weight: 600; color: var(--white); }
+.review-meta { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+.review-footer { display: flex; align-items: center; gap: 14px; }
+.review-avatar {
+  width: 48px; height: 48px; border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--glass-border); flex-shrink: 0;
+}
+
+/* ─── PRICE ─── */
+.price-section { background: var(--bg-card); }
+.price-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: var(--radius); overflow: hidden;
+}
+.price-table th {
+  text-align: left; padding: 16px 24px; font-size: 12px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim);
+  background: rgba(255,255,255,0.02); font-weight: 600;
+  border-bottom: 1px solid var(--glass-border);
+}
+.price-table td {
+  padding: 18px 24px; font-size: 15px;
+  border-bottom: 1px solid var(--glass-border);
+}
+.price-table tr:last-child td { border-bottom: none; }
+.price-table tr:hover td { background: rgba(200,169,110,0.03); }
+.price-table .price-val {
+  font-family: 'Manrope', sans-serif; font-weight: 700;
+  color: var(--gold); white-space: nowrap;
+}
+.price-table .price-name { color: var(--white); font-weight: 500; }
+.price-table .price-desc { color: var(--text-dim); font-size: 13px; }
+.price-note {
+  margin-top: 24px; padding: 20px 24px;
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 12px; font-size: 14px; color: var(--text);
+}
+.price-note strong { color: var(--gold); }
+
+/* ─── FAQ ─── */
+.faq-list { max-width: 760px; }
+.faq-item {
+  border-bottom: 1px solid var(--glass-border);
+}
+.faq-q {
+  width: 100%; padding: 24px 0; background: none; border: none;
+  color: var(--white); font-size: 17px; font-weight: 600;
+  font-family: 'Manrope', sans-serif; text-align: left;
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  transition: color 0.3s;
+}
+.faq-q:hover { color: var(--gold); }
+.faq-q::after {
+  content: '+'; font-size: 24px; font-weight: 300;
+  color: var(--gold); transition: transform 0.3s;
+  flex-shrink: 0; margin-left: 16px;
+}
+.faq-item.open .faq-q::after { content: '−'; }
+.faq-a {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s;
+}
+.faq-item.open .faq-a { max-height: 300px; padding-bottom: 24px; }
+.faq-a p { font-size: 15px; color: var(--text); line-height: 1.7; }
+
+/* ─── CONTACT ─── */
+.contact-section { background: var(--bg-card); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.contact-form {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: var(--radius); padding: 36px; backdrop-filter: blur(12px);
+}
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block; font-size: 13px; color: var(--text-dim);
+  margin-bottom: 8px; font-weight: 500; letter-spacing: 0.5px;
+}
+.form-group input, .form-group select {
+  width: 100%; padding: 14px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px; color: var(--white);
+  font-size: 15px; font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s; outline: none;
+}
+.form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+.form-group select option { background: #1a1a1a; }
+.form-submit {
+  width: 100%; padding: 16px;
+  background: var(--gold); color: var(--bg); border: none;
+  border-radius: 10px; font-weight: 700; font-size: 16px;
+  cursor: pointer; transition: all 0.3s;
+  font-family: 'Manrope', sans-serif;
+}
+.form-submit:hover { background: var(--gold-light); }
+.contact-info h3 { font-size: 22px; margin-bottom: 32px; }
+.contact-detail {
+  display: flex; align-items: flex-start; gap: 16px;
+  margin-bottom: 28px;
+}
+.contact-detail .icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: rgba(200,169,110,0.1); display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.contact-detail .detail-label { font-size: 12px; color: var(--text-dim); margin-bottom: 4px; letter-spacing: 1px; text-transform: uppercase; }
+.contact-detail .detail-value { color: var(--white); font-size: 15px; font-weight: 500; }
+.contact-map {
+  margin-top: 32px; border-radius: var(--radius); overflow: hidden;
+  height: 200px; background: #1a1a1a;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--glass-border);
+  color: var(--text-dim); font-size: 14px;
+}
+
+/* ─── BOOKING MODAL ─── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.modal-overlay.open { opacity: 1; visibility: visible; }
+.modal-overlay.open .modal-content {
+  transform: translateY(0); opacity: 1;
+}
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 40px;
+  max-width: 480px; width: 100%;
+  position: relative;
+  transform: translateY(20px); opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.modal-close {
+  position: absolute; top: 16px; right: 20px;
+  background: none; border: none;
+  color: var(--text-dim); font-size: 28px;
+  cursor: pointer; transition: color 0.3s;
+  line-height: 1;
+}
+.modal-close:hover { color: var(--white); }
+
+/* ─── CONSULTATION STEPS ─── */
+.consult-steps { display: flex; flex-direction: column; gap: 24px; }
+.consult-step {
+  display: flex; align-items: flex-start; gap: 16px;
+}
+.consult-step-num {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Manrope', sans-serif; font-weight: 800;
+  font-size: 16px; color: var(--gold); flex-shrink: 0;
+}
+.consult-step-title {
+  font-family: 'Manrope', sans-serif; font-weight: 600;
+  font-size: 16px; color: var(--white); margin-bottom: 4px;
+}
+.consult-step-desc {
+  font-size: 14px; color: var(--text-dim); line-height: 1.6;
+}
+.consult-note {
+  margin-top: 28px; padding: 14px 20px;
+  background: rgba(200,169,110,0.06); border: 1px solid rgba(200,169,110,0.15);
+  border-radius: 10px; font-size: 14px; color: var(--gold); font-weight: 500;
+  text-align: center; cursor: pointer; transition: all 0.3s;
+}
+.consult-note:hover {
+  background: var(--gold); color: var(--bg); border-color: var(--gold);
+}
+
+/* ─── PRE-FOOTER CTA ─── */
+.prefooter-cta {
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+.prefooter-cta::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* ─── FOOTER NEW ─── */
+.footer-new {
+  border-top: 1px solid var(--glass-border);
+  padding: 64px 0 0;
+}
+.fn-brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--glass-border);
+}
+.fn-logo {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 48px;
+  color: var(--white);
+  letter-spacing: 6px;
+}
+.fn-logo span { color: var(--gold); }
+.fn-socials { display: flex; gap: 12px; }
+.fn-socials a {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: var(--glass); border: 1px solid var(--glass-border);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+.fn-socials a:hover { border-color: var(--gold); }
+.fn-socials a svg { width: 18px; height: 18px; fill: var(--text); transition: fill 0.3s; }
+.fn-socials a:hover svg { fill: var(--gold); }
+
+.fn-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 48px;
+  padding: 48px 0;
+}
+.fn-col-title {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); font-weight: 600; margin-bottom: 20px;
+}
+.fn-about p {
+  font-size: 14px; color: var(--text-dim); line-height: 1.8; max-width: 340px;
+}
+.fn-badges { display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
+.fn-badge {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px; background: var(--glass);
+  border: 1px solid var(--glass-border); border-radius: 8px;
+  font-size: 12px; color: var(--text-dim);
+}
+.fn-badge svg { width: 16px; height: 16px; flex-shrink: 0; }
+.fn-nav a {
+  display: block; color: var(--text); font-size: 15px;
+  font-weight: 500; padding: 6px 0; transition: color 0.3s;
+  text-decoration: none;
+}
+.fn-nav a:hover { color: var(--white); }
+.fn-contact-item {
+  display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px;
+}
+.fn-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(200,169,110,0.08);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.fn-icon svg { width: 18px; height: 18px; }
+.fn-label {
+  font-size: 11px; color: var(--text-dim); letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 3px;
+}
+.fn-value { font-size: 15px; color: var(--white); font-weight: 500; }
+.fn-value a { color: var(--white); text-decoration: none; transition: color 0.3s; }
+.fn-value a:hover { color: var(--gold); }
+.fn-messengers { display: flex; gap: 10px; margin-top: 4px; }
+.fn-messengers a {
+  padding: 6px 14px; border-radius: 8px;
+  background: var(--glass); border: 1px solid var(--glass-border);
+  font-size: 13px; font-weight: 500; color: var(--text);
+  text-decoration: none; transition: all 0.3s;
+}
+.fn-messengers a:hover { border-color: var(--gold); color: var(--white); }
+.fn-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 0; border-top: 1px solid var(--glass-border);
+}
+.fn-copy { font-size: 13px; color: var(--text-dim); }
+.fn-legal { display: flex; gap: 24px; }
+.fn-legal a { font-size: 13px; color: var(--text-dim); text-decoration: none; transition: color 0.3s; }
+.fn-legal a:hover { color: var(--text); }
+
+/* ─── ANIMATIONS ─── */
+.fade-up {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── MOBILE ─── */
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .tech-grid { grid-template-columns: repeat(1, 1fr); }
+  .reviews-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .burger { display: block; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: rgba(22,22,29,0.97); backdrop-filter: blur(20px);
+    padding: 24px; gap: 20px;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-links.open a { font-size: 16px; padding: 8px 0; }
+  .nav-cta { padding: 10px 20px; font-size: 13px; }
+  .hero { min-height: auto; padding-top: 80px; padding-bottom: 20px; }
+  .hero-content { padding: 40px 0 32px; }
+  .hero h1 { font-size: 36px; margin-bottom: 16px; }
+  .hero-sub { font-size: 15px; margin-bottom: 28px; }
+  .hero-cta { padding: 14px 28px; font-size: 15px; width: 100%; justify-content: center; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 40px; padding-top: 28px; }
+  .hero-stat-num { font-size: 26px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .service-card { padding: 24px 20px; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .about-image { height: 260px; }
+  .about-numbers { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .about-num-card { padding: 16px; }
+  .about-num-card .num { font-size: 24px; }
+  .team-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .team-photo { height: 200px; }
+  .team-info { padding: 16px; }
+  .team-info h3 { font-size: 14px; }
+  .team-role { font-size: 12px; }
+  .team-stats { font-size: 11px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .contact-form { padding: 24px; }
+  .form-group input, .form-group select { padding: 16px; font-size: 16px; }
+  .form-submit { padding: 18px; font-size: 17px; }
+  .price-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .price-table th, .price-table td { padding: 14px 16px; font-size: 14px; white-space: nowrap; }
+  section { padding: 56px 0; }
+  .section-title { font-size: 28px; }
+  .section-desc { font-size: 15px; }
+  .faq-q { font-size: 15px; padding: 20px 0; }
+  .faq-a p { font-size: 14px; }
+  .reviews-header .rating { padding: 10px 16px; }
+  .rating-num { font-size: 24px; }
+  .review-card { padding: 20px; }
+  .review-text { font-size: 13px; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .hero h1 { font-size: 30px; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 3px; }
+  .hero-stats { gap: 16px; }
+  .hero-stat-num { font-size: 22px; }
+  .hero-stat-label { font-size: 11px; }
+  .team-grid { grid-template-columns: 1fr; }
+  .team-photo { height: 240px; }
+  .about-image { height: 220px; }
+  .case-images { height: 200px; }
+  .case-info { padding: 16px; }
+  .case-info h3 { font-size: 15px; }
+  .tech-card { padding: 24px 20px; }
+  .section-title { font-size: 24px; }
+  .contact-detail .detail-value { font-size: 14px; }
+  .prefooter-cta { padding: 64px 0; }
+  .fn-brand-row { flex-direction: column; gap: 24px; text-align: center; }
+  .fn-logo { font-size: 36px; }
+  .fn-grid { grid-template-columns: 1fr; gap: 40px; padding: 40px 0; }
+  .fn-about p { max-width: 100%; }
+  .fn-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="#" class="nav-logo">AURIS<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Послуги</a></li>
+      <li><a href="#cases">Кейси</a></li>
+      <li><a href="#about">Про нас</a></li>
+      <li><a href="#team">Команда</a></li>
+      <li><a href="#price">Ціни</a></li>
+      <li><a href="#contact">Контакти</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Записатися</a>
+    <button class="burger" id="burger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- 🔒 ══════ SCROLL CONTAINER ══════ -->
+<div id="scroll-container">
+
+  <!-- 🔒 ══════ HERO ══════ -->
+  <section id="hero">
+    <video id="bg-video" autoplay muted loop playsinline>
+      <source src="https://labs.google/fx/api/og-video/shared/9761d795-4f79-4522-930a-9fe7399e469a" type="video/mp4">
+    </video>
+    <div class="hero-gradient"></div>
+
+    <div class="container" id="hero-content">
+      <div class="hero-eyebrow">Цифрова естетична стоматологія</div>
+      <h1>Посмішка,<br>спроєктована <span class="accent">для вас</span></h1>
+      <p class="hero-sub">Побачте результат до початку лікування завдяки Digital Smile Design. Технології, які перетворюють стоматологію на точну науку.</p>
+      <a href="#contact" class="hero-cta">
+        Записатися на консультацію
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <div class="hero-stats">
+        <div><span class="hero-stat-num">2 400+</span><span class="hero-stat-label">Створених посмішок</span></div>
+        <div><span class="hero-stat-num">8 років</span><span class="hero-stat-label">Досвіду</span></div>
+        <div><span class="hero-stat-num">98,7%</span><span class="hero-stat-label">Приживлення імплантів</span></div>
+        <div><span class="hero-stat-num">10 років</span><span class="hero-stat-label">Гарантія</span></div>
+      </div>
+    </div>
+
+    <!-- 🔒 OVERLAY -->
+    <div id="hero-overlay">
+      <div class="hero-overlay-label">AURIS Dental Studio</div>
+      <div class="hero-overlay-title">Мистецтво цифрової стоматології</div>
+    </div>
+  </section>
+
+  <!-- 🔒 ══════ SECTION 2 (inside scroll-container) ══════ -->
+  <section id="section-2">
+<section id="services">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-eyebrow">Послуги</div>
+      <h2 class="section-title">Що ми робимо</h2>
+      <p class="section-desc">Кожна послуга — результат поєднання цифрових технологій та клінічного досвіду. Без компромісів.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon">💎</div>
+        <h3>Вініри E-max</h3>
+        <p>Тонкі керамічні накладки. Корекція форми, кольору, нерівностей за 2 візити.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">⚙️</div>
+        <h3>Імплантація Straumann</h3>
+        <p>Швейцарські імпланти з приживленням 98,7%. Встановлення за 30-40 хвилин.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🦷</div>
+        <h3>All-on-4 / All-on-6</h3>
+        <p>Повне відновлення щелепи на 4 або 6 імплантах за 1 день.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">✨</div>
+        <h3>Відбілювання ZOOM 4</h3>
+        <p>Освітлення на 6-8 тонів за 1 годину. Безпечно для емалі.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🪥</div>
+        <h3>Професійна гігієна</h3>
+        <p>Ультразвук + Air Flow + полірування. Основа здорових зубів.</p>
+      </div>
+    </div>
+  </div>
+</section>
+  </section>
+
+</div><!-- 🔒 scroll-container END -->
+
+<!-- ══════ CASES (Before/After) ══════ -->
+<section class="cases-section" id="cases">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-eyebrow">Кейси</div>
+      <h2 class="section-title">Результати, які говорять самі за себе</h2>
+      <p class="section-desc">Реальні кейси наших пацієнтів. Кожна трансформація — задокументований процес від діагностики до фінального результату.</p>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card fade-up">
+        <div class="case-images">
+          <div class="case-img-wrap before">
+            <img class="case-img" src="https://labs.google/fx/api/og-image/shared/7759e244-33ca-4b9f-a848-b1d2df8595c6" alt="До — стерті зуби">
+          </div>
+          <div class="case-img-wrap after">
+            <img class="case-img" src="https://labs.google/fx/api/og-image/shared/285ebe81-b3a0-408e-8878-7c20a38447df" alt="Після — вініри E-max">
+          </div>
+          <span class="case-label case-label-before">ДО</span>
+          <div class="case-divider"></div>
+          <span class="case-label case-label-after">ПІСЛЯ</span>
+        </div>
+        <div class="case-info">
+          <span class="case-tag">ВІНІРИ</span>
+          <h3>8 вінірів E-max на верхню щелепу</h3>
+          <p>Стерті, нерівні передні зуби. Пацієнт уникав посмішок на фото. Результат — природна рівна посмішка без обточування.</p>
+          <div class="case-meta">
+            <span>Термін: <strong>2 тижні</strong></span>
+            <span>Візити: <strong>3</strong></span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card fade-up">
+        <div class="case-images">
+          <div class="case-img-wrap before">
+            <img class="case-img" src="https://labs.google/fx/api/og-image/shared/0f0167cc-8d70-4e9c-909a-0b7825cf3e4a" alt="До — діастема">
+          </div>
+          <div class="case-img-wrap after">
+            <img class="case-img" src="https://labs.google/fx/api/og-image/shared/e779527a-6d55-4461-9e1d-e5977c2b4bce" alt="Після — рівні зуби">
+          </div>
+          <span class="case-label case-label-before">ДО</span>
+          <div class="case-divider"></div>
+          <span class="case-label case-label-after">ПІСЛЯ</span>
+        </div>
+        <div class="case-info">
+          <span class="case-tag">ІМПЛАНТАЦІЯ</span>
+          <h3>3 імпланти Straumann + коронки</h3>
+          <p>Відсутні жувальні зуби протягом 2 років. Біль при їжі. Повне відновлення жувальної функції.</p>
+          <div class="case-meta">
+            <span>Термін: <strong>4 місяці</strong></span>
+            <span>Імпланти: <strong>Straumann</strong></span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card fade-up">
+        <div class="case-images">
+          <div class="case-img-wrap before">
+            <img class="case-img" src="https://labs.google/fx/api/og-image/shared/67c7a7b8-8e36-428e-86f6-99cd7f159047" alt="До — відсутні зуби">
+          </div>
+          <div class="case-img-wrap after">
+            <img class="case-img" src="https://labs.google/fx/api/og-image/shared/5f5d2a6c-51db-498f-801a-7f54464e37a3" alt="Після — повний ряд">
+          </div>
+          <span class="case-label case-label-before">ДО</span>
+          <div class="case-divider"></div>
+          <span class="case-label case-label-after">ПІСЛЯ</span>
+        </div>
+        <div class="case-info">
+          <span class="case-tag">ALL-ON-4</span>
+          <h3>Повне відновлення верхньої щелепи</h3>
+          <p>Повна адентія. Знімний протез натирав і рухався. Фіксований протез в день операції.</p>
+          <div class="case-meta">
+            <span>Протез: <strong>за 1 день</strong></span>
+            <span>Постійний: <strong>4 місяці</strong></span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card fade-up">
+        <div class="case-images">
+          <div class="case-img-wrap before">
+            <img class="case-img" src="https://labs.google/fx/api/og-image/shared/dd0df71d-05bd-4e42-97c7-60273d37f137" alt="До — жовті зуби">
+          </div>
+          <div class="case-img-wrap after">
+            <img class="case-img" src="https://labs.google/fx/api/og-image/shared/156c4e09-cd02-43a7-9f48-aad110e6c4ed" alt="Після — біла посмішка">
+          </div>
+          <span class="case-label case-label-before">ДО</span>
+          <div class="case-divider"></div>
+          <span class="case-label case-label-after">ПІСЛЯ</span>
+        </div>
+        <div class="case-info">
+          <span class="case-tag">SMILE MAKEOVER</span>
+          <h3>Відбілювання ZOOM + 6 вінірів</h3>
+          <p>Жовті зуби, діастема, старі пломби. Комплексний підхід: відбілювання + керамічні вініри.</p>
+          <div class="case-meta">
+            <span>Термін: <strong>3 тижні</strong></span>
+            <span>Результат: <strong>природний відтінок</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TECH ══════ -->
+<section class="tech-section" id="tech">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-eyebrow">Технології</div>
+      <h2 class="section-title">Технології, які змінюють підхід</h2>
+      <p class="section-desc">Ми інвестуємо в обладнання, яке робить лікування передбачуваним і комфортним.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card fade-up">
+        <img class="tech-img" src="https://images.unsplash.com/photo-1643660527098-559f89e45a92?w=600&q=80" alt="Digital Smile Design — монітор з 3D-моделлю">
+        <h3>Digital Smile Design</h3>
+        <p>Цифрове моделювання вашої майбутньої посмішки. Ви бачите результат на екрані та примірюєте тимчасові вініри до фінального лікування. Жодних сюрпризів.</p>
+      </div>
+      <div class="tech-card fade-up">
+        <img class="tech-img" src="https://images.unsplash.com/photo-1606811856475-5e6fcdc6e509?w=600&q=80" alt="3D-сканування iTero">
+        <h3>3D-сканування iTero</h3>
+        <p>Замість незручних силіконових відбитків — цифровий скан за 3 хвилини. Точність до 10 мікрон. Комфортно та швидко.</p>
+      </div>
+      <div class="tech-card fade-up">
+        <img class="tech-img" src="https://images.unsplash.com/photo-1698808342955-500cb9b9a25e?w=600&q=80" alt="Мікроскоп Carl Zeiss">
+        <h3>Мікроскоп Carl Zeiss ×25</h3>
+        <p>25-кратне збільшення для ендодонтичного лікування. Бачимо те, що не видно неозброєним оком. Зберігаємо зуби, які інші рекомендують видаляти.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════ ABOUT ══════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image fade-up">
+        <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&q=80" alt="AURIS Dental Studio інтер'єр">
+      </div>
+      <div class="about-text fade-up">
+        <div class="section-eyebrow">Про клініку</div>
+        <h2 class="section-title">Не просто клініка — студія цифрової стоматології</h2>
+        <p>AURIS Dental Studio — це 320 м² простору, де кожна деталь спроєктована для точності. 3D-сканер замість силіконових відбитків. Мікроскоп замість здогадок. Планування на екрані замість експериментів у кріслі.</p>
+        <p>Ми не лікуємо "зуби". Ми проєктуємо посмішки — з тією ж увагою до деталей, з якою архітектори проєктують простори.</p>
+        <div class="about-numbers">
+          <div class="about-num-card">
+            <div class="num">320 м²</div>
+            <div class="label">4 кабінети з обладнанням</div>
+          </div>
+          <div class="about-num-card">
+            <div class="num">4 лікарі</div>
+            <div class="label">Вузька спеціалізація кожного</div>
+          </div>
+          <div class="about-num-card">
+            <div class="num">12+</div>
+            <div class="label">Міжнародних сертифікацій</div>
+          </div>
+          <div class="about-num-card">
+            <div class="num">0</div>
+            <div class="label">Прихованих доплат</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TEAM ══════ -->
+<section id="team" style="background: var(--bg-card);">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-eyebrow">Команда</div>
+      <h2 class="section-title">Лікарі, яким довіряють</h2>
+      <p class="section-desc">Кожен спеціаліст веде кейс від початку до кінця. Один лікар — один пацієнт — один результат.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card fade-up">
+        <div class="team-photo">
+          <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&q=80" alt="Др. Олександр Мельник">
+        </div>
+        <div class="team-info">
+          <h3>Др. Олександр Мельник</h3>
+          <div class="team-role">Головний лікар · Імплантолог</div>
+          <div class="team-stats">12 років досвіду<br>1 800+ імплантів<br>Straumann Academy, Швейцарія</div>
+        </div>
+      </div>
+      <div class="team-card fade-up">
+        <div class="team-photo">
+          <img src="https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?w=400&q=80" alt="Др. Марина Коваль">
+        </div>
+        <div class="team-info">
+          <h3>Др. Марина Коваль</h3>
+          <div class="team-role">Естетичний стоматолог · Ортопед</div>
+          <div class="team-stats">9 років досвіду<br>600+ вінірів<br>DSD Residency, Іспанія</div>
+        </div>
+      </div>
+      <div class="team-card fade-up">
+        <div class="team-photo">
+          <img src="https://images.unsplash.com/photo-1622902046580-2b47f47f5471?w=400&q=80" alt="Др. Андрій Шевченко">
+        </div>
+        <div class="team-info">
+          <h3>Др. Андрій Шевченко</h3>
+          <div class="team-role">Ортодонт</div>
+          <div class="team-stats">7 років досвіду<br>Invisalign Diamond Provider<br>400+ кейсів вирівнювання</div>
+        </div>
+      </div>
+      <div class="team-card fade-up">
+        <div class="team-photo">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" alt="Др. Юлія Бондар">
+        </div>
+        <div class="team-info">
+          <h3>Др. Юлія Бондар</h3>
+          <div class="team-role">Терапевт · Ендодонтист</div>
+          <div class="team-stats">8 років досвіду<br>Лікування під мікроскопом<br>Порятунок «безнадійних» зубів</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ REVIEWS ══════ -->
+<section id="reviews">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-eyebrow">Відгуки</div>
+      <h2 class="section-title">Що кажуть наші пацієнти</h2>
+    </div>
+    <div class="reviews-header fade-up">
+      <div class="rating">
+        <span class="rating-num">4.9</span>
+        <div>
+          <div class="rating-stars">★★★★★</div>
+          <div class="rating-count">280+ відгуків на Google Maps</div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">«Боялась стоматологів з дитинства. В AURIS вперше відчула себе спокійно. Доктор Коваль показала, як виглядатимуть мої вініри на 3D-моделі ще до початку. Результат — саме те, що я бачила на екрані.»</p>
+        <div class="review-footer">
+          <img class="review-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Олена К.">
+          <div>
+            <div class="review-author">Олена К.</div>
+            <div class="review-meta">34 роки, маркетолог</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">«Ходив з відсутніми зубами 2 роки, бо боявся імплантації. Др. Мельник провів операцію за 40 хвилин. Наступного дня навіть знеболювальне не знадобилось.»</p>
+        <div class="review-footer">
+          <img class="review-avatar" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80" alt="Дмитро В.">
+          <div>
+            <div class="review-author">Дмитро В.</div>
+            <div class="review-meta">42 роки, підприємець</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">«All-on-4 змінив моє життя. Замість знімного протезу, який соромилась виймати при онуках — повноцінна красива посмішка. Дякую всій команді AURIS.»</p>
+        <div class="review-footer">
+          <img class="review-avatar" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=100&q=80" alt="Ірина М.">
+          <div>
+            <div class="review-author">Ірина М.</div>
+            <div class="review-meta">58 років</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">«Прийшов на гігієну — вийшов з планом на вініри. Не тому що тиснули, а тому що вперше побачив на 3D-моделі, як може виглядати моя посмішка. Через місяць повернувся — зробили 6 вінірів. Дружина до цих пір у захваті.»</p>
+        <div class="review-footer">
+          <img class="review-avatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt="Максим Д.">
+          <div>
+            <div class="review-author">Максим Д.</div>
+            <div class="review-meta">38 років, IT-спеціаліст</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">«Робила відбілювання ZOOM в іншій клініці — зуби болісно реагували тиждень. Тут все було інакше: капи з десенситайзером, контроль кожні 15 хвилин. Результат на 7 тонів і жодного дискомфорту після.»</p>
+        <div class="review-footer">
+          <img class="review-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Анна С.">
+          <div>
+            <div class="review-author">Анна С.</div>
+            <div class="review-meta">29 років, дизайнер</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">«Привів маму на All-on-6. Їй 64, і вона 3 роки мучилась зі знімним протезом. Операція зранку — ввечері поїхала додому з новими зубами. Через 4 місяці поставили постійний протез. Тепер сміється не прикриваючись.»</p>
+        <div class="review-footer">
+          <img class="review-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Тарас Л.">
+          <div>
+            <div class="review-author">Тарас Л.</div>
+            <div class="review-meta">41 рік, менеджер</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PRICE ══════ -->
+<section class="price-section" id="price">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-eyebrow">Ціни</div>
+      <h2 class="section-title">Прозорі ціни без сюрпризів</h2>
+      <p class="section-desc">Ціна фіксується до початку лікування. Ви знаєте фінальну суму ще до того, як сядете у крісло.</p>
+    </div>
+    <table class="price-table fade-up">
+      <thead>
+        <tr>
+          <th>Послуга</th>
+          <th>Ціна</th>
+          <th>Що входить</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="price-name">Консультація + 3D-знімок</span></td>
+          <td><span class="price-val">0 грн</span></td>
+          <td class="price-desc">Огляд, панорамний знімок, план лікування</td>
+        </tr>
+        <tr>
+          <td><span class="price-name">Професійна гігієна</span></td>
+          <td><span class="price-val">2 800 грн</span></td>
+          <td class="price-desc">Ультразвук + Air Flow + полірування, 60 хв</td>
+        </tr>
+        <tr>
+          <td><span class="price-name">Відбілювання ZOOM 4</span></td>
+          <td><span class="price-val">6 500 грн</span></td>
+          <td class="price-desc">3 сеанси по 15 хв + капи для підтримки</td>
+        </tr>
+        <tr>
+          <td><span class="price-name">Вінір E-max (1 зуб)</span></td>
+          <td><span class="price-val">18 500 грн</span></td>
+          <td class="price-desc">Сканування + виготовлення + фіксація</td>
+        </tr>
+        <tr>
+          <td><span class="price-name">Цирконієва коронка</span></td>
+          <td><span class="price-val">14 000 грн</span></td>
+          <td class="price-desc">3D-скан + коронка + фіксація</td>
+        </tr>
+        <tr>
+          <td><span class="price-name">Імплант Straumann (під ключ)</span></td>
+          <td><span class="price-val">28 000 грн</span></td>
+          <td class="price-desc">Імплант + абатмент + операція</td>
+        </tr>
+        <tr>
+          <td><span class="price-name">Коронка на імплант</span></td>
+          <td><span class="price-val">16 000 грн</span></td>
+          <td class="price-desc">Цирконій або E-max</td>
+        </tr>
+        <tr>
+          <td><span class="price-name">All-on-4 (1 щелепа)</span></td>
+          <td><span class="price-val">185 000 грн</span></td>
+          <td class="price-desc">4 імпланти + тимчасовий протез + хірургія</td>
+        </tr>
+        <tr>
+          <td><span class="price-name">All-on-6 (1 щелепа)</span></td>
+          <td><span class="price-val">235 000 грн</span></td>
+          <td class="price-desc">6 імплантів + тимчасовий протез + хірургія</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="price-note fade-up">
+      <strong>Розстрочка:</strong> до 12 місяців без відсотків через ПриватБанк та monobank. Оформлення за 5 хвилин у клініці.
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FAQ ══════ -->
+<section id="faq">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-eyebrow">FAQ</div>
+      <h2 class="section-title">Відповіді на часті запитання</h2>
+    </div>
+    <div class="faq-list fade-up">
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Чи боляче встановлювати вініри?</button>
+        <div class="faq-a"><p>Ні. Сучасні E-max вініри потребують мінімального обточування емалі (0,3-0,5 мм). Процедура проводиться під місцевою анестезією комп'ютерним шприцом — голка настільки тонка, що ви не відчуєте укол.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Скільки часу приживляється імплант?</button>
+        <div class="faq-a"><p>Імпланти Straumann мають поверхню SLActive, яка скорочує остеоінтеграцію до 6-8 тижнів замість стандартних 3-4 місяців. Протягом цього часу ви носите тимчасову коронку.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Чи можна поставити вініри, якщо є пломби?</button>
+        <div class="faq-a"><p>Так. Якщо зуб має старі пломби або реставрації, вінір повністю перекриє їх і створить нову поверхню. На консультації лікар оцінить стан зуба та підтвердить можливість встановлення.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Чому безкоштовна консультація — без підступу?</button>
+        <div class="faq-a"><p>Ми вкладаємо в діагностику 30 хвилин і панорамний 3D-знімок. Це наша інвестиція: коли пацієнт бачить чітку картину та прозорий план, він обирає усвідомлене рішення без тиску.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Скільки тримаються вініри?</button>
+        <div class="faq-a"><p>Вініри E-max служать 10-15 років за умови правильного догляду. Ми даємо письмову гарантію до 10 років. Раз на 6 місяців рекомендуємо профілактичний огляд та професійну гігієну.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CONTACT ══════ -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-eyebrow">Запис</div>
+      <h2 class="section-title">Запишіться на безкоштовну консультацію</h2>
+      <p class="section-desc">Огляд, 3D-знімок та план лікування — безкоштовно. Адміністратор зв'яжеться з вами протягом 30 хвилин.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-form fade-up" id="contact-form">
+        <div class="form-group">
+          <label>Ваше ім'я</label>
+          <input type="text" placeholder="Олена Коваленко">
+        </div>
+        <div class="form-group">
+          <label>Телефон</label>
+          <input type="tel" placeholder="+380 __ ___ __ __">
+        </div>
+        <div class="form-group">
+          <label>Послуга</label>
+          <select>
+            <option>Оберіть послугу</option>
+            <option>Консультація</option>
+            <option>Вініри</option>
+            <option>Імплантація</option>
+            <option>Відбілювання</option>
+            <option>All-on-4 / All-on-6</option>
+            <option>Професійна гігієна</option>
+            <option>Інше</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Зручний час</label>
+          <select>
+            <option>Оберіть час</option>
+            <option>Ранок (09:00–12:00)</option>
+            <option>День (12:00–16:00)</option>
+            <option>Вечір (16:00–20:00)</option>
+          </select>
+        </div>
+        <button class="form-submit">Записатися</button>
+      </div>
+      <div class="contact-info fade-up">
+        <h3>Що буде на консультації</h3>
+        <div class="consult-steps">
+          <div class="consult-step">
+            <div class="consult-step-num">1</div>
+            <div>
+              <div class="consult-step-title">Огляд</div>
+              <div class="consult-step-desc">Лікар оцінить стан зубів, вислухає ваші побажання та відповість на питання</div>
+            </div>
+          </div>
+          <div class="consult-step">
+            <div class="consult-step-num">2</div>
+            <div>
+              <div class="consult-step-title">3D-знімок</div>
+              <div class="consult-step-desc">Панорамний знімок на цифровому томографі — повна картина за 30 секунд</div>
+            </div>
+          </div>
+          <div class="consult-step">
+            <div class="consult-step-num">3</div>
+            <div>
+              <div class="consult-step-title">План лікування</div>
+              <div class="consult-step-desc">Індивідуальний план з варіантами, термінами та фіксованою вартістю</div>
+            </div>
+          </div>
+          <div class="consult-step">
+            <div class="consult-step-num">4</div>
+            <div>
+              <div class="consult-step-title">Рішення за вами</div>
+              <div class="consult-step-desc">Без тиску. Забираєте план додому, обдумуєте, повертаєтесь коли готові</div>
+            </div>
+          </div>
+        </div>
+        <a href="javascript:void(0)" class="consult-note" onclick="document.getElementById('booking-modal').classList.add('open');setTimeout(()=>document.getElementById('modal-name').focus(),350)" style="display:block;text-decoration:none;">Тривалість: 30 хвилин · Вартість: безкоштовно — Записатися →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════ FOOTER ══════ -->
+<footer class="footer-new">
+  <div class="container">
+
+    <!-- Row 1: Brand + Socials -->
+    <div class="fn-brand-row">
+      <div class="fn-logo">AURIS<span>.</span></div>
+      <div class="fn-socials">
+        <a href="https://instagram.com/auris.dental" target="_blank" title="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5Zm4.25 3.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5Zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Zm5.5-1.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>
+        </a>
+        <a href="https://facebook.com/auris.dental" target="_blank" title="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879v-6.988h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12Z"/></svg>
+        </a>
+        <a href="https://tiktok.com/@auris.dental" target="_blank" title="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M16.6 5.82A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48Z"/></svg>
+        </a>
+        <a href="https://youtube.com/@auris.dental" target="_blank" title="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19 31.76 31.76 0 0 0 0 12a31.76 31.76 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14c1.87.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14A31.76 31.76 0 0 0 24 12a31.76 31.76 0 0 0-.5-5.81ZM9.54 15.57V8.43L15.82 12l-6.28 3.57Z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Row 2: 3-column grid -->
+    <div class="fn-grid">
+      <!-- Col 1: About -->
+      <div class="fn-about">
+        <div class="fn-col-title">Про студію</div>
+        <p>Студія цифрової естетичної стоматології. Проєктуємо посмішки з точністю архітектора — за допомогою 3D-сканера, мікроскопа та Digital Smile Design.</p>
+        <div class="fn-badges">
+          <div class="fn-badge">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Zm-1 15-4-4 1.41-1.41L11 13.17l5.59-5.59L18 9l-7 7Z" fill="var(--gold)"/></svg>
+            4.9 ★ Google
+          </div>
+          <div class="fn-badge">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Zm-1 15-4-4 1.41-1.41L11 13.17l5.59-5.59L18 9l-7 7Z" fill="var(--gold)"/></svg>
+            2 400+ пацієнтів
+          </div>
+        </div>
+      </div>
+      <!-- Col 2: Nav -->
+      <div>
+        <div class="fn-col-title">Навігація</div>
+        <nav class="fn-nav">
+          <a href="#services">Послуги</a>
+          <a href="#cases">Кейси До / Після</a>
+          <a href="#tech">Технології</a>
+          <a href="#about">Про клініку</a>
+          <a href="#team">Команда</a>
+          <a href="#price">Ціни</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
+      <!-- Col 3: Contact -->
+      <div>
+        <div class="fn-col-title">Контакти</div>
+        <div class="fn-contact-item">
+          <div class="fn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <div class="fn-label">Адреса</div>
+            <div class="fn-value"><a href="https://maps.app.goo.gl/" target="_blank">вул. Мечникова, 9 · Печерськ</a></div>
+          </div>
+        </div>
+        <div class="fn-contact-item">
+          <div class="fn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.87.36 1.72.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c1.09.34 1.94.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></div>
+          <div>
+            <div class="fn-label">Телефон</div>
+            <div class="fn-value"><a href="tel:+380441234567">+380 (44) 123-45-67</a></div>
+          </div>
+        </div>
+        <div class="fn-contact-item">
+          <div class="fn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2Z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div>
+            <div class="fn-label">Пошта</div>
+            <div class="fn-value"><a href="mailto:hello@auris.dental">hello@auris.dental</a></div>
+          </div>
+        </div>
+        <div class="fn-contact-item">
+          <div class="fn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg></div>
+          <div>
+            <div class="fn-label">Месенджери</div>
+            <div class="fn-messengers">
+              <a href="https://t.me/auris_dental" target="_blank">Telegram</a>
+              <a href="viber://chat?number=%2B380441234567">Viber</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Bottom -->
+    <div class="fn-bottom">
+      <div class="fn-copy">© 2026 AURIS Dental Studio. Всі права захищено.</div>
+      <div class="fn-legal">
+        <a href="#">Політика конфіденційності</a>
+        <a href="#">Публічна оферта</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════ BOOKING MODAL ══════ -->
+<div class="modal-overlay" id="booking-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="document.getElementById('booking-modal').classList.remove('open')">&times;</button>
+    <div class="modal-header">
+      <div class="section-eyebrow">Запис</div>
+      <h3 style="font-size:24px;margin-bottom:8px;">Безкоштовна консультація</h3>
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:28px;">Огляд, 3D-знімок та план лікування. Відповімо протягом 30 хвилин.</p>
+    </div>
+    <div class="form-group">
+      <label>Ваше ім'я</label>
+      <input type="text" placeholder="Олена Коваленко" id="modal-name">
+    </div>
+    <div class="form-group">
+      <label>Телефон</label>
+      <input type="tel" placeholder="+380 __ ___ __ __">
+    </div>
+    <div class="form-group">
+      <label>Послуга</label>
+      <select>
+        <option>Оберіть послугу</option>
+        <option>Консультація</option>
+        <option>Вініри</option>
+        <option>Імплантація</option>
+        <option>Відбілювання</option>
+        <option>All-on-4 / All-on-6</option>
+        <option>Професійна гігієна</option>
+        <option>Інше</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Зручний час</label>
+      <select>
+        <option>Оберіть час</option>
+        <option>Ранок (09:00–12:00)</option>
+        <option>День (12:00–16:00)</option>
+        <option>Вечір (16:00–20:00)</option>
+      </select>
+    </div>
+    <button class="form-submit">Записатися</button>
+  </div>
+</div>
+
+<script>
+// Set --vh for mobile browsers
+function setVh() {
+  document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+}
+setVh();
+window.addEventListener('resize', setVh);
+
+// Scroll-driven hero animation
+const scrollContainer = document.getElementById('scroll-container');
+const bgVideo = document.getElementById('bg-video');
+const heroContent = document.getElementById('hero-content');
+const heroOverlay = document.getElementById('hero-overlay');
+
+function animateHero() {
+  if (!scrollContainer) return;
+  const rect = scrollContainer.getBoundingClientRect();
+  const scrollHeight = scrollContainer.offsetHeight - window.innerHeight;
+  const scrolled = Math.max(0, -rect.top);
+  const progress = Math.min(1, scrolled / scrollHeight);
+
+  const phase1 = Math.min(1, progress / 0.2);
+  const phase2 = Math.max(0, Math.min(1, (progress - 0.15) / 0.3));
+
+  const contentOpacity = 1 - phase1;
+  heroContent.style.opacity = contentOpacity;
+  heroContent.style.transform = `translateY(${-phase1 * 60}px)`;
+  heroContent.style.visibility = contentOpacity < 0.05 ? 'hidden' : 'visible';
+
+  bgVideo.style.transform = `scale(${1 + phase1 * 0.15})`;
+  heroOverlay.style.opacity = phase2;
+}
+window.addEventListener('scroll', animateHero, { passive: true });
+animateHero();
+
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Fade-up animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
