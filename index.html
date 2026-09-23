@@ -793,6 +793,8 @@ section { padding: var(--section-y) 0; }
 .case-img { position: absolute; inset: 0; }   /* фото заповнює комірку без темних смуг */
 /* кейс №1: у джерельних фото темні смуги зверху/знизу — кадруємо по змісту */
 .case-card:first-child .case-img { transform: scale(1.27); }
+/* кейс №4: у фото «до» знизу темна смуга — зсуваємо кадр вгору */
+.case-card:nth-child(4) .case-img-wrap.before .case-img { object-position: center 25%; }
 .case-meta { flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
 .team-photo img { object-position: center 12%; }  /* обличчя не обрізаються */
 
@@ -809,6 +811,7 @@ section { padding: var(--section-y) 0; }
   :root { --section-y: 72px; }
   .case-card:first-child .case-images { height: auto; aspect-ratio: 3 / 1; }
   .case-card:first-child .case-img { transform: none; }
+  .case-card:nth-child(4) .case-img-wrap.before .case-img { object-position: center top; transform: scale(1.2); transform-origin: center top; }
   .services-grid { grid-template-columns: 1fr; }
   .services-grid .service-card:last-child { grid-column: auto; }
   #hero-content { padding: 96px 0 var(--s-5); }
