@@ -789,6 +789,11 @@ section { padding: var(--section-y) 0; }
 .fn-badge, .fn-copy, .fn-legal a, .fn-messengers a { font-size: var(--fs-sm); }
 .fn-about p { font-size: var(--fs-sm); line-height: 1.6; }
 
+.case-img-wrap { height: 100%; }
+.case-img { position: absolute; inset: 0; }   /* фото заповнює комірку без темних смуг */
+/* кейс №1: у джерельних фото темні смуги зверху/знизу — кадруємо по змісту */
+.case-card:first-child .case-img { transform: scale(1.27); }
+.case-meta { flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
 .team-photo img { object-position: center 12%; }  /* обличчя не обрізаються */
 
 /* sticky CTA (тільки мобільний) */
@@ -802,6 +807,8 @@ section { padding: var(--section-y) 0; }
 }
 @media (max-width: 768px) {
   :root { --section-y: 72px; }
+  .case-card:first-child .case-images { height: auto; aspect-ratio: 3 / 1; }
+  .case-card:first-child .case-img { transform: none; }
   .services-grid { grid-template-columns: 1fr; }
   .services-grid .service-card:last-child { grid-column: auto; }
   #hero-content { padding: 96px 0 var(--s-5); }
@@ -1634,7 +1641,12 @@ function toggleSticky() {
   const pastHero = window.scrollY > window.innerHeight * 0.9;
   const cr = contactSec.getBoundingClientRect();
   const formVisible = cr.top < window.innerHeight * 0.6 && cr.bottom > 0;
-  stickyCta.classList.toggle('show', pastHero && !formVisible);
+  // не дублюємо кнопку, коли на екрані вже є CTA секції
+  const ctaVisible = [...document.querySelectorAll('.section-cta')].some(el => {
+    const r = el.getBoundingClientRect();
+    return r.top < window.innerHeight && r.bottom > 0;
+  });
+  stickyCta.classList.toggle('show', pastHero && !formVisible && !ctaVisible);
 }
 window.addEventListener('scroll', toggleSticky, { passive: true });
 toggleSticky();
