@@ -58,7 +58,7 @@ h1, h2, h3, h4, h5 { font-family: 'Manrope', sans-serif; color: var(--white); li
 /* 🔒 ─── SCROLL CONTAINER ─── */
 #scroll-container {
   position: relative;
-  height: calc(250 * var(--vh));
+  min-height: calc(250 * var(--vh));   /* auto-висота: секція послуг не вилазить за контейнер на мобільному */
 }
 #hero {
   position: sticky;
@@ -1615,7 +1615,7 @@ const heroOverlay = document.getElementById('hero-overlay');
 function animateHero() {
   if (!scrollContainer) return;
   const rect = scrollContainer.getBoundingClientRect();
-  const scrollHeight = scrollContainer.offsetHeight - window.innerHeight;
+  const scrollHeight = window.innerHeight * 1.5;  // фіксована дистанція анімації (250vh - 100vh)
   const scrolled = Math.max(0, -rect.top);
   const progress = Math.min(1, scrolled / scrollHeight);
 
