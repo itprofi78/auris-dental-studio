@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AURIS Dental Studio — студія цифрової естетичної стоматології в Києві: вініри E-max, імплантація Straumann, All-on-4. Безкоштовна консультація та 3D-план лікування.">
 <title>AURIS Dental Studio — Цифрова естетична стоматологія</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -788,6 +789,8 @@ section { padding: var(--section-y) 0; }
 .fn-badge, .fn-copy, .fn-legal a, .fn-messengers a { font-size: var(--fs-sm); }
 .fn-about p { font-size: var(--fs-sm); line-height: 1.6; }
 
+.team-photo img { object-position: center 12%; }  /* обличчя не обрізаються */
+
 /* sticky CTA (тільки мобільний) */
 .sticky-cta { display: none; }
 
@@ -832,6 +835,7 @@ section { padding: var(--section-y) 0; }
   .footer-new { padding-bottom: 80px; }
 }
 @media (max-width: 480px) {
+  .team-photo { height: 240px; }
   .section-title { font-size: 28px; }
   .team-info h3 { font-size: var(--fs-base); }
   .team-stats { font-size: var(--fs-sm); }
@@ -853,7 +857,7 @@ section { padding: var(--section-y) 0; }
       <li><a href="#contact">Контакти</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Записатися</a>
-    <button class="burger" id="burger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <button class="burger" id="burger" aria-label="Відкрити меню" onclick="document.getElementById('navLinks').classList.toggle('open')">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -1378,7 +1382,7 @@ section { padding: var(--section-y) 0; }
         </div>
         <div class="form-group">
           <label>Послуга <span class="opt">(необов’язково)</span></label>
-          <select>
+          <select aria-label="Послуга">
             <option>Оберіть послугу</option>
             <option>Консультація</option>
             <option>Вініри</option>
@@ -1391,7 +1395,7 @@ section { padding: var(--section-y) 0; }
         </div>
         <div class="form-group">
           <label>Зручний час <span class="opt">(необов’язково)</span></label>
-          <select>
+          <select aria-label="Зручний час">
             <option>Оберіть час</option>
             <option>Ранок (09:00–12:00)</option>
             <option>День (12:00–16:00)</option>
@@ -1433,7 +1437,7 @@ section { padding: var(--section-y) 0; }
             </div>
           </div>
         </div>
-        <a href="javascript:void(0)" class="consult-note" onclick="document.getElementById('booking-modal').classList.add('open');setTimeout(()=>document.getElementById('modal-name').focus(),350)" style="display:block;text-decoration:none;">Тривалість: 30 хвилин · Вартість: безкоштовно — Записатися →</a>
+        <a href="#contact" class="consult-note" onclick="event.preventDefault();document.getElementById('booking-modal').classList.add('open');setTimeout(()=>document.getElementById('modal-name').focus(),350)" style="display:block;text-decoration:none;">Тривалість: 30 хвилин · Вартість: безкоштовно — Записатися →</a>
       </div>
     </div>
   </div>
@@ -1562,7 +1566,7 @@ section { padding: var(--section-y) 0; }
     </div>
     <div class="form-group">
       <label>Послуга <span class="opt">(необов’язково)</span></label>
-      <select>
+      <select aria-label="Послуга">
         <option>Оберіть послугу</option>
         <option>Консультація</option>
         <option>Вініри</option>
@@ -1575,7 +1579,7 @@ section { padding: var(--section-y) 0; }
     </div>
     <div class="form-group">
       <label>Зручний час <span class="opt">(необов’язково)</span></label>
-      <select>
+      <select aria-label="Зручний час">
         <option>Оберіть час</option>
         <option>Ранок (09:00–12:00)</option>
         <option>День (12:00–16:00)</option>
