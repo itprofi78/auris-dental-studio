@@ -111,18 +111,8 @@ h1, h2, h3, h4, h5 { font-family: 'Manrope', sans-serif; color: var(--white); li
 #section-2 {
   position: relative;
   z-index: 4;
-  background: rgba(22, 22, 29, 0.15);
+  background: linear-gradient(to bottom, rgba(22, 22, 29, 0) 0, var(--bg) 100px);
   will-change: transform;
-}
-#section-2 .section-eyebrow,
-#section-2 .section-title,
-#section-2 .section-desc {
-  background: rgba(22, 22, 29, 0.85);
-  display: inline;
-  padding: 4px 12px;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  border-radius: 4px;
 }
 /* ─── SECTIONS ─── */
 section { padding: 100px 0; }
@@ -698,6 +688,154 @@ section { padding: 100px 0; }
   .fn-about p { max-width: 100%; }
   .fn-bottom { flex-direction: column; gap: 16px; text-align: center; }
 }
+
+/* ═══════ DESIGN SYSTEM v2 (уроки М2: типошкала, ритм ×8, контраст, тотожність) ═══════ */
+:root {
+  --bg-card: #1A1A22;
+  --text-dim: #9A9AAE;          /* контраст ≥ 4.5:1 на --bg і --bg-card */
+  /* типошкала: база 16, коефіцієнт ~1.25 */
+  --fs-sm: 14px; --fs-base: 16px; --fs-lg: 20px;
+  --fs-h2: clamp(31px, 4vw, 49px);
+  --fs-h1: clamp(40px, min(6vw, 8.5vh), 72px);
+  /* ритм: усе кратне 8 */
+  --s-1: 8px; --s-2: 16px; --s-3: 24px; --s-4: 32px; --s-5: 48px; --s-6: 64px;
+  --section-y: 120px;
+  --measure: 65ch;
+}
+h1 { line-height: 1.05; letter-spacing: -0.04em; }
+h2, .section-title { line-height: 1.15; letter-spacing: -0.03em; }
+h3 { line-height: 1.3; }
+#hero h1 { font-size: var(--fs-h1); }
+#hero-content { padding-top: 112px; padding-bottom: var(--s-4); }
+.hero-overlay-title { letter-spacing: -0.03em; line-height: 1.1; }
+.hero-eyebrow, .section-eyebrow { font-size: 13px; letter-spacing: 0.14em; }
+.section-title { font-size: var(--fs-h2); margin-bottom: var(--s-2); }
+.section-desc { font-size: var(--fs-base); max-width: 60ch; margin-bottom: var(--s-6); }
+section { padding: var(--section-y) 0; }
+#section-2 { padding: 0; }
+
+/* hero */
+.hero-sub { font-size: var(--fs-lg); line-height: 1.6; max-width: 52ch; margin-bottom: var(--s-4); }
+.hero-proof { margin-top: var(--s-3); font-size: var(--fs-sm); color: var(--text); }
+.hero-proof-stars { color: var(--gold); letter-spacing: 2px; margin-right: var(--s-1); }
+.hero-stats { grid-template-columns: repeat(3, 1fr); margin-top: var(--s-4); padding-top: var(--s-3); }
+.hero-stat-label { font-size: var(--fs-sm); }
+
+/* кнопки: одна система (висота 48, радіус 12, вага 700) */
+.hero-cta, .nav-cta, .form-submit, .btn {
+  min-height: 48px; border-radius: 12px; font-family: 'Manrope', sans-serif; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  text-decoration: none; cursor: pointer; border: none;
+  background: var(--gold); color: var(--bg); transition: background .3s, transform .3s;
+}
+.hero-cta, .btn, .form-submit { padding: 0 32px; font-size: var(--fs-base); }
+.nav-cta { padding: 0 24px; font-size: var(--fs-sm); }
+.btn:hover, .hero-cta:hover, .nav-cta:hover, .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+.form-submit { width: 100%; }
+.form-note { margin-top: var(--s-2); font-size: var(--fs-sm); color: var(--text-dim); text-align: center; }
+.form-group label .opt { color: var(--text-dim); font-weight: 400; }
+.form-group label { font-size: var(--fs-sm); }
+.section-cta { margin-top: var(--s-6); display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; }
+.section-cta-note { font-size: var(--fs-sm); color: var(--text-dim); }
+
+/* картки: gap 24, padding 32, читабельні розміри */
+.services-grid { gap: var(--s-3); grid-template-columns: repeat(6, 1fr); }
+.services-grid .service-card { grid-column: span 2; }
+.services-grid .service-card:nth-child(n+4) { grid-column: span 3; }
+.service-card { padding: var(--s-4); display: flex; flex-direction: column; }
+.service-icon { margin-bottom: var(--s-3); }
+.service-icon svg { width: 24px; height: 24px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.service-card h3 { font-size: var(--fs-lg); margin-bottom: var(--s-1); }
+.service-card p { font-size: var(--fs-base); margin-bottom: var(--s-3); flex: 1; }
+.service-price { font-size: var(--fs-base); padding-top: var(--s-2); border-top: 1px solid var(--glass-border); }
+.service-price span { font-size: var(--fs-sm); }
+.cases-grid, .tech-grid { gap: var(--s-3); }
+.case-info { padding: var(--s-3); }
+.case-info h3 { font-size: var(--fs-lg); margin-bottom: var(--s-1); }
+.case-info p { font-size: var(--fs-base); line-height: 1.6; }
+.case-meta { gap: var(--s-3); margin-top: var(--s-2); padding-top: var(--s-2); }
+.case-meta span { font-size: var(--fs-sm); }
+.case-tag { font-size: 13px; letter-spacing: 0.08em; padding: 4px 12px; margin-bottom: var(--s-2); }
+.case-label { font-size: 13px; }
+.tech-card { padding: var(--s-4); }
+.tech-card p { font-size: var(--fs-base); line-height: 1.6; }
+.about-grid { gap: var(--s-6); }
+.about-text p { font-size: var(--fs-base); line-height: 1.6; max-width: var(--measure); }
+.about-numbers { gap: var(--s-2); margin-top: var(--s-4); }
+.about-num-card { padding: var(--s-3); }
+.about-num-card .label { font-size: var(--fs-sm); }
+.team-grid { gap: var(--s-3); }
+.team-info { padding: var(--s-3); }
+.team-info h3 { font-size: var(--fs-base); }
+.team-role { font-size: var(--fs-sm); margin-bottom: var(--s-2); }
+.team-stats { font-size: var(--fs-sm); line-height: 1.6; }
+.reviews-header { margin-bottom: var(--s-5); }
+.rating-count, .review-meta { font-size: var(--fs-sm); }
+.reviews-grid { gap: var(--s-3); }
+.review-card { padding: var(--s-4); }
+.review-text { font-size: var(--fs-base); line-height: 1.6; }
+.review-author { font-size: var(--fs-base); }
+.price-table th { font-size: 13px; letter-spacing: 0.1em; }
+.price-table td { font-size: var(--fs-base); }
+.price-table .price-desc { font-size: var(--fs-sm); }
+.price-note { padding: var(--s-3); margin-top: var(--s-3); font-size: var(--fs-base); }
+.faq-q { font-size: var(--fs-lg); }
+.faq-a p { font-size: var(--fs-base); max-width: var(--measure); }
+.contact-grid { gap: var(--s-6); }
+.contact-form { padding: var(--s-4); }
+.consult-step-desc { font-size: var(--fs-sm); }
+.fn-col-title, .fn-label { font-size: 13px; }
+.fn-badge, .fn-copy, .fn-legal a, .fn-messengers a { font-size: var(--fs-sm); }
+.fn-about p { font-size: var(--fs-sm); line-height: 1.6; }
+
+/* sticky CTA (тільки мобільний) */
+.sticky-cta { display: none; }
+
+@media (max-width: 1024px) {
+  :root { --section-y: 96px; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid .service-card, .services-grid .service-card:nth-child(n+4) { grid-column: auto; }
+  .services-grid .service-card:last-child { grid-column: span 2; }
+}
+@media (max-width: 768px) {
+  :root { --section-y: 72px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .services-grid .service-card:last-child { grid-column: auto; }
+  #hero-content { padding: 96px 0 var(--s-5); }
+  #hero h1 { font-size: clamp(36px, 10.5vw, 44px); margin-bottom: var(--s-2); }
+  .hero-sub { font-size: var(--fs-base); margin-bottom: var(--s-3); }
+  .hero-cta { width: 100%; }
+  .hero-proof { margin-top: var(--s-2); }
+  .hero-stats { margin-top: var(--s-3); padding-top: var(--s-3); gap: var(--s-2); }
+  .hero-stat-num { font-size: 24px; }
+  .hero-stat-label { font-size: 13px; }
+  .section-desc { margin-bottom: var(--s-5); }
+  .section-title { font-size: 31px; }
+  .section-cta { margin-top: var(--s-5); }
+  .section-cta .btn { width: 100%; }
+  .service-card, .tech-card, .review-card { padding: var(--s-3); }
+  .team-info h3 { font-size: var(--fs-sm); }
+  .team-stats { font-size: 13px; }
+  .about-grid, .contact-grid { gap: var(--s-4); }
+  .nav-cta { padding: 0 16px; }
+  .form-submit { padding: 0 32px; font-size: var(--fs-base); }
+  .sticky-cta {
+    display: flex; align-items: center; justify-content: center;
+    position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 90;
+    min-height: 48px; border-radius: 12px; background: var(--gold); color: var(--bg);
+    font: 700 16px 'Manrope', sans-serif; text-decoration: none;
+    box-shadow: 0 8px 32px rgba(0,0,0,.45);
+    transform: translateY(96px); opacity: 0; pointer-events: none;
+    transition: transform .3s, opacity .3s;
+  }
+  .sticky-cta.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .footer-new { padding-bottom: 80px; }
+}
+@media (max-width: 480px) {
+  .section-title { font-size: 28px; }
+  .team-info h3 { font-size: var(--fs-base); }
+  .team-stats { font-size: var(--fs-sm); }
+}
 </style>
 </head>
 <body>
@@ -734,15 +872,15 @@ section { padding: 100px 0; }
     <div class="container" id="hero-content">
       <div class="hero-eyebrow">Цифрова естетична стоматологія</div>
       <h1>Посмішка,<br>спроєктована <span class="accent">для вас</span></h1>
-      <p class="hero-sub">Побачте результат до початку лікування завдяки Digital Smile Design. Технології, які перетворюють стоматологію на точну науку.</p>
+      <p class="hero-sub">Ви затверджуєте свою посмішку на екрані ще до того, як ми торкнемось зуба. Вініри, імплантація, All-on-4.</p>
       <a href="#contact" class="hero-cta">
         Записатися на консультацію
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
+      <div class="hero-proof"><span class="hero-proof-stars">★★★★★</span> 4.9 · 280+ відгуків на Google Maps</div>
       <div class="hero-stats">
         <div><span class="hero-stat-num">2 400+</span><span class="hero-stat-label">Створених посмішок</span></div>
         <div><span class="hero-stat-num">8 років</span><span class="hero-stat-label">Досвіду</span></div>
-        <div><span class="hero-stat-num">98,7%</span><span class="hero-stat-label">Приживлення імплантів</span></div>
         <div><span class="hero-stat-num">10 років</span><span class="hero-stat-label">Гарантія</span></div>
       </div>
     </div>
@@ -765,29 +903,34 @@ section { padding: 100px 0; }
     </div>
     <div class="services-grid">
       <div class="service-card fade-up">
-        <div class="service-icon">💎</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></div>
         <h3>Вініри E-max</h3>
         <p>Тонкі керамічні накладки. Корекція форми, кольору, нерівностей за 2 візити.</p>
+        <div class="service-price">від 18 500 грн <span>за зуб</span></div>
       </div>
       <div class="service-card fade-up">
-        <div class="service-icon">⚙️</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h8v3H8z"/><path d="M9 6v2h6V6"/><path d="M9 11h6M10 14h4M10 17h4"/><path d="M12 17v4"/></svg></div>
         <h3>Імплантація Straumann</h3>
         <p>Швейцарські імпланти з приживленням 98,7%. Встановлення за 30-40 хвилин.</p>
+        <div class="service-price">від 28 000 грн <span>під ключ</span></div>
       </div>
       <div class="service-card fade-up">
-        <div class="service-icon">🦷</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3C4.5 3 3 5 3 7.5c0 2 1 3.5 1.5 5.5.6 2.4.6 8 2.5 8 1.6 0 1.2-4.5 3-4.5s1.4 4.5 3 4.5c1.9 0 1.9-5.6 2.5-8 .5-2 1.5-3.5 1.5-5.5C21 5 19.5 3 17 3c-2 0-3 1-5 1S9 3 7 3Z"/></svg></div>
         <h3>All-on-4 / All-on-6</h3>
         <p>Повне відновлення щелепи на 4 або 6 імплантах за 1 день.</p>
+        <div class="service-price">від 185 000 грн <span>за щелепу</span></div>
       </div>
       <div class="service-card fade-up">
-        <div class="service-icon">✨</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z"/><path d="M19 3v4M17 5h4M5 17v4M3 19h4"/></svg></div>
         <h3>Відбілювання ZOOM 4</h3>
         <p>Освітлення на 6-8 тонів за 1 годину. Безпечно для емалі.</p>
+        <div class="service-price">6 500 грн <span>за курс</span></div>
       </div>
       <div class="service-card fade-up">
-        <div class="service-icon">🪥</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.7s6 6.3 6 10.8a6 6 0 0 1-12 0c0-4.5 6-10.8 6-10.8Z"/></svg></div>
         <h3>Професійна гігієна</h3>
         <p>Ультразвук + Air Flow + полірування. Основа здорових зубів.</p>
+        <div class="service-price">2 800 грн <span>за візит</span></div>
       </div>
     </div>
   </div>
@@ -893,6 +1036,10 @@ section { padding: 100px 0; }
           </div>
         </div>
       </div>
+    </div>
+    <div class="section-cta fade-up">
+      <a href="#contact" class="btn">Хочу так само — записатися</a>
+      <span class="section-cta-note">Консультація безкоштовна · 30 хвилин</span>
     </div>
   </div>
 </section>
@@ -1011,6 +1158,10 @@ section { padding: 100px 0; }
         </div>
       </div>
     </div>
+    <div class="section-cta fade-up">
+      <a href="#contact" class="btn">Записатися до лікаря</a>
+      <span class="section-cta-note">Один лікар веде вас від діагностики до результату</span>
+    </div>
   </div>
 </section>
 
@@ -1120,7 +1271,7 @@ section { padding: 100px 0; }
       <tbody>
         <tr>
           <td><span class="price-name">Консультація + 3D-знімок</span></td>
-          <td><span class="price-val">0 грн</span></td>
+          <td><span class="price-val">Безкоштовно</span></td>
           <td class="price-desc">Огляд, панорамний знімок, план лікування</td>
         </tr>
         <tr>
@@ -1167,6 +1318,10 @@ section { padding: 100px 0; }
     </table>
     <div class="price-note fade-up">
       <strong>Розстрочка:</strong> до 12 місяців без відсотків через ПриватБанк та monobank. Оформлення за 5 хвилин у клініці.
+    </div>
+    <div class="section-cta fade-up">
+      <a href="#contact" class="btn">Отримати план лікування безкоштовно</a>
+      <span class="section-cta-note">Фінальна сума фіксується до початку лікування</span>
     </div>
   </div>
 </section>
@@ -1222,7 +1377,7 @@ section { padding: 100px 0; }
           <input type="tel" placeholder="+380 __ ___ __ __">
         </div>
         <div class="form-group">
-          <label>Послуга</label>
+          <label>Послуга <span class="opt">(необов’язково)</span></label>
           <select>
             <option>Оберіть послугу</option>
             <option>Консультація</option>
@@ -1235,7 +1390,7 @@ section { padding: 100px 0; }
           </select>
         </div>
         <div class="form-group">
-          <label>Зручний час</label>
+          <label>Зручний час <span class="opt">(необов’язково)</span></label>
           <select>
             <option>Оберіть час</option>
             <option>Ранок (09:00–12:00)</option>
@@ -1243,7 +1398,8 @@ section { padding: 100px 0; }
             <option>Вечір (16:00–20:00)</option>
           </select>
         </div>
-        <button class="form-submit">Записатися</button>
+        <button class="form-submit">Записатися на консультацію</button>
+        <p class="form-note">Передзвонимо протягом 30 хвилин у робочий час. Без тиску й зобов’язань.</p>
       </div>
       <div class="contact-info fade-up">
         <h3>Що буде на консультації</h3>
@@ -1385,6 +1541,8 @@ section { padding: 100px 0; }
   </div>
 </footer>
 
+<a href="#contact" class="sticky-cta" id="stickyCta">Записатися на консультацію</a>
+
 <!-- ══════ BOOKING MODAL ══════ -->
 <div class="modal-overlay" id="booking-modal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal-content">
@@ -1403,7 +1561,7 @@ section { padding: 100px 0; }
       <input type="tel" placeholder="+380 __ ___ __ __">
     </div>
     <div class="form-group">
-      <label>Послуга</label>
+      <label>Послуга <span class="opt">(необов’язково)</span></label>
       <select>
         <option>Оберіть послугу</option>
         <option>Консультація</option>
@@ -1416,7 +1574,7 @@ section { padding: 100px 0; }
       </select>
     </div>
     <div class="form-group">
-      <label>Зручний час</label>
+      <label>Зручний час <span class="opt">(необов’язково)</span></label>
       <select>
         <option>Оберіть час</option>
         <option>Ранок (09:00–12:00)</option>
@@ -1424,7 +1582,8 @@ section { padding: 100px 0; }
         <option>Вечір (16:00–20:00)</option>
       </select>
     </div>
-    <button class="form-submit">Записатися</button>
+    <button class="form-submit">Записатися на консультацію</button>
+        <p class="form-note">Передзвонимо протягом 30 хвилин у робочий час. Без тиску й зобов’язань.</p>
   </div>
 </div>
 
@@ -1450,7 +1609,7 @@ function animateHero() {
   const progress = Math.min(1, scrolled / scrollHeight);
 
   const phase1 = Math.min(1, progress / 0.2);
-  const phase2 = Math.max(0, Math.min(1, (progress - 0.15) / 0.3));
+  const phase2 = Math.max(0, Math.min(1, (progress - 0.08) / 0.17));
 
   const contentOpacity = 1 - phase1;
   heroContent.style.opacity = contentOpacity;
@@ -1458,9 +1617,23 @@ function animateHero() {
   heroContent.style.visibility = contentOpacity < 0.05 ? 'hidden' : 'visible';
 
   bgVideo.style.transform = `scale(${1 + phase1 * 0.15})`;
-  heroOverlay.style.opacity = phase2;
+  // overlay: fade in, then fade out before the services section reaches it
+  const overlayOut = Math.max(0, Math.min(1, (progress - 0.28) / 0.12));
+  heroOverlay.style.opacity = phase2 * (1 - overlayOut);
 }
 window.addEventListener('scroll', animateHero, { passive: true });
+
+// Sticky mobile CTA: show after hero, hide when the booking form is on screen
+const stickyCta = document.getElementById('stickyCta');
+const contactSec = document.getElementById('contact');
+function toggleSticky() {
+  const pastHero = window.scrollY > window.innerHeight * 0.9;
+  const cr = contactSec.getBoundingClientRect();
+  const formVisible = cr.top < window.innerHeight * 0.6 && cr.bottom > 0;
+  stickyCta.classList.toggle('show', pastHero && !formVisible);
+}
+window.addEventListener('scroll', toggleSticky, { passive: true });
+toggleSticky();
 animateHero();
 
 // Nav scroll effect
